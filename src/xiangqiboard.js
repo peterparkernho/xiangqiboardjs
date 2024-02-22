@@ -1445,6 +1445,22 @@
         dropDraggedPieceOnSquare(location)
       }
     }
+	
+function clickOnPiece(source, piece, x, y) {
+      // run their custom onDragStart function
+      // their custom onDragStart function can cancel drag start
+      if (
+        isFunction(config.onClick) &&
+        config.onClick(
+          source,
+          piece,
+          deepCopy(currentPosition),
+          currentOrientation
+        ) === false
+      ) {
+        return;
+      }
+    }
 
     // -------------------------------------------------------------------------
     // Public Methods
@@ -1616,15 +1632,24 @@
     }
 
     function mousedownSquare (evt) {
-      // do nothing if we're not draggable
-      if (!config.draggable) return
+      if (config.draggable) {
+        // do nothing if there is no piece on this square
+        const square = $(this).attr("data-square");
+        if (!validSquare(square)) return;
+        if (!currentPosition.hasOwnProperty(square)) return;
 
-      // do nothing if there is no piece on this square
-      const square = $(this).attr('data-square')
-      if (!validSquare(square)) return
-      if (!currentPosition.hasOwnProperty(square)) return
-
-      beginDraggingPiece(square, currentPosition[square], evt.pageX, evt.pageY)
+        beginDraggingPiece(
+          square,
+          currentPosition[square],
+          evt.pageX,
+          evt.pageY
+        );
+      } else {
+        const square = $(this).attr("data-square");
+        if (!validSquare(square)) return;
+        if (!currentPosition.hasOwnProperty(square)) return;
+        clickOnPiece(square, currentPosition[square], evt.pageX, evt.pageY);
+      }
     }
 
     function touchstartSquare (e) {
