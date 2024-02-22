@@ -368,8 +368,8 @@ function buildExamplesCellHTML (examplesIds) {
 
 function buildMostRecentVersionHTML () {
   const VERSION = JSON.parse(fs.readFileSync('package.json', encoding)).version
-  return '<a href="https://github.com/lengyanyu258/xiangqiboardjs/releases/download/v'
-    + VERSION + '/xiangqiboardjs-' + VERSION + '.zip">Download v' + VERSION + '</a>'
+  return '<a href="https://github.com/lengyanyu258/xiangqiboardjs/releases/download/v' +
+    VERSION + '/xiangqiboardjs-' + VERSION + '.zip">Download v' + VERSION + '</a>'
 }
 
 function isString (s) {
