@@ -1647,7 +1647,7 @@ function clickOnPiece(source, piece, x, y) {
       } else {
         const square = $(this).attr("data-square");
         if (!validSquare(square)) return;
-        if (!currentPosition.hasOwnProperty(square)) return;
+        // if (!currentPosition.hasOwnProperty(square)) return;
         clickOnPiece(square, currentPosition[square], evt.pageX, evt.pageY);
       }
     }
